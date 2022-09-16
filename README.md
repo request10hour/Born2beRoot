@@ -48,15 +48,16 @@ active 상태인지 확인, 4242포트로 listening인지 확인
 Debian에서 구동중인지 확인
 
 ## User
-The subject requests that a user with the login of the student being evaluated is present on the virtual machine. Check that it has been added and that it belongs to the sudo and user42 groups.
+The subject requests that a user with the login of the student being evaluated is present on the virtual machine. Check that it has been added and that it belongs to the sudo and user42 groups.<br>
+`sudo adduser <username> <group = sudo, user42>`<br>미리 해놨어야하고 `groups`로 확인하면 sudo 및 user42그룹에 속해있는지 확인가능
 1. First, create a new user.<br>
 `cut -d ':' -f1 /etc/passwd`<br>
 유저목록 확인<br>
 `sudo adduser <username>`<br>
-"adduser user42"를 하면 user42이름의 유저 및 그룹이 자동으로 생성됨. 비번만 입력하고 나머지 응답은 엔터로 스킵<br>
+"adduser \<username>"을 하면 username이름의 유저 및 그룹이 자동으로 생성됨. 비번만 입력하고 나머지 응답은 엔터로 스킵<br>
 `cut -d ":" -f1 /etc/passwd`<br>
 유저 생성됨 확인
-1. Assign it a password of your choice.<br>
+2. Assign it a password of your choice.<br>
 **1번에서 함.**<br>
 adduser를 하면 비번까지 일사천리로 되고, useradd를 하면 비번을 `sudo passwd <username>`으로 따로 설정해줘야 함. 비번설정안하면 해당 유저로 로그인안됨...
 3. Normally there should be one or two modified files.<br>
@@ -83,9 +84,36 @@ adduser를 하면 비번까지 일사천리로 되고, useradd를 하면 비번�
 	enforce_for_root
 	```
 4. 	Create a group named evaluating in front of you and assign it to this user.<br>
-**1번에서 함.**<br>그룹 자동으로 생성되어있고, user42 그룹 안에 들어가있음. 그룹목록 확인하고싶으면,<br>
-`cut -d ":" -f1 /etc/passwd`
-1. Check that this user belongs to the evaluating group.<br>
-user42로 로그인해서 `groups` 명령어 치면 됨
+`sudo addgroup evaluating`<br>
+'evaluating' 그룹을 추가<br>
+`cut -d ":" -f1 /etc/group`<br>
+그룹 목록 확인<br>
+`sudo adduser <username> evaluating`<br>
+user를 'evaluating' 그룹에 추가<br>
+~~`sudo deluser <username> <group>`<br>
+user를 그룹에서 제외~~
+5. Check that this user belongs to the evaluating group.<br>
+user로 로그인해서 `groups` 명령어 치면 됨
 
 (무언가 확인하다가 출력되는 내용이 너무 길면 명령어 뒤에 ` | less` 를 붙이자)
+
+## Hostname and partitions
+1. The hostname is .login42<br>
+`hostname`
+2. Modify this hostname by replacing the login with yours, then restart the machine.<br>
+변경 : `(sudo) hostname <hostname>` <br>
+확인 : `hostname`
+3. 	Restore the machine to the original hostname.<br>
+변경 : `(sudo) hostname <login42>` <br>
+확인 : `hostname`
+4. 	How to view the partitions for this virtual machine. <br>
+`lsblk` - list block devices
+5. How LVM works and what it is all about.<br>
+**LVM(논리 볼륨 관리자)** - 파티션이 하나의 물리 저장 장치 내부에 국한되어지지 않아서 용량을 유연하게 사용 가능하게 해줌<br>
+**PV(물리 볼륨)** - 물리적 저장 장치. HDD, USB... 등<br>
+**VG(볼륨 그룹)** - PV를 묶어서 만든 가상 스토리지 디스크<br>
+**LV(논리 볼륨)** - 가상 스토리지 디스크인 VG 내부에 생성된 파티션<br>
+- LVM : PV를 묶어서 VG를 만들고 LV로 나누어 사용
+
+## SUDO
+1.
