@@ -16,10 +16,8 @@
 Debian을 선택함 확인
 3. The basic differences between CentOS and Debian.<br>
 **아키텍처** - AArch64/ARM64, i386 ...등의 유명한 아키텍처는 양쪽 모두 지원<br>
-CentOS 7은 POWER9,<br>
-Debian은 MIPSel, MIPS64el, s390x<br>
-**패키지 관리** - CentOS는 YUM/DNF를 사용하고,<br>
-Debian은 dpkg/APT를 사용한다.<br>
+CentOS 7은 POWER9, Debian은 MIPSel, MIPS64el, s390x<br>
+**패키지 관리** - CentOS는 YUM/DNF를 사용하고, Debian은 dpkg/APT를 사용한다.<br>
 **파일 시스템** - CentOS에선 ZFS 파일시스템 미지원...큰 차이는 없다.<br>
 **커널** -  2021년 기준 자료여서 달라졌을지도 모르지만...데비안이 보다 최신 커널을 사용한다<br>
 **업그레이드** - CentOS는 마이너 업데이트 가능 (  7 -> 7.8, 7.9 ) 메이저 업데이트 불가능 ( 7 -> 8 )<br>
