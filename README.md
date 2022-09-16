@@ -34,3 +34,17 @@ Debian의 기본 패키지 관리자는 **dpkg**이다. 한 가지 프로그램�
 AppArmor는 MAC(필수 액세스 제어) 보안을 제공한다. 시스템 관리자는 프로세스가 수행하는 작업을 제한할 수 있다. enforce-mode / complain-mode 두가지 프로필로 작동한다.<br>
 "enforce-mode" - 작업 자체를 제한, 금지<br>
 "complain-mode" - 작업 허용, complain 메시지 표시<br>
+
+## Simple setup
+A password will be requested before attempting to connect to this machine. This user must not be root.
+1. Check that the UFW service is started.<br>
+`sudo ufw status`<br>
+4242포트로 열려있는지 확인
+2. Check that the SSH service is started.<br>
+`sudo systemctl status ssh`<br>
+active 상태인지 확인, 4242포트로 listening인지 확인
+3. 	Check that the chosen operating system is Debian or CentOS.<br>
+`cat /etc/os-release`<br>
+Debian에서 구동중인지 확인
+
+## User
