@@ -48,3 +48,44 @@ active 상태인지 확인, 4242포트로 listening인지 확인
 Debian에서 구동중인지 확인
 
 ## User
+The subject requests that a user with the login of the student being evaluated is present on the virtual machine. Check that it has been added and that it belongs to the sudo and user42 groups.
+1. First, create a new user.<br>
+`cut -d ':' -f1 /etc/passwd`<br>
+유저목록 확인<br>
+`sudo adduser <username>`<br>
+"adduser user42"를 하면 user42이름의 유저 및 그룹이 자동으로 생성됨. 비번만 입력하고 나머지 응답은 엔터로 스킵<br>
+`cut -d ":" -f1 /etc/passwd`<br>
+유저 생성됨 확인
+1. Assign it a password of your choice.<br>
+**1번에서 함.**<br>
+adduser를 하면 비번까지 일사천리로 되고, useradd를 하면 비번을 `sudo passwd <username>`으로 따로 설정해줘야 함. 비번설정안하면 해당 유저로 로그인안됨...
+3. Normally there should be one or two modified files.<br>
+`sudo vim /etc/login.defs`<br>
+`sudo vim /etc/security/pwquality.conf`<br>
+위의 두가지 파일을 수정했을것임
+	```vim
+	# /etc/login.defs
+
+	PASS_MAX_DAYS 30
+	PASS_MIN_DAYS 2
+	PASS_WARN_AGE 7
+	```
+	```vim
+	# /etc/security/pwquality
+
+	defok = 7
+	minlen = 10
+	dcredit = -1
+	ucredit = -1
+	maxrepeat = 3
+	gecoscheck = 1
+	usercheck = 1
+	enforce_for_root
+	```
+4. 	Create a group named evaluating in front of you and assign it to this user.<br>
+**1번에서 함.**<br>그룹 자동으로 생성되어있고, user42 그룹 안에 들어가있음. 그룹목록 확인하고싶으면,<br>
+`cut -d ":" -f1 /etc/passwd`
+1. Check that this user belongs to the evaluating group.<br>
+user42로 로그인해서 `groups` 명령어 치면 됨
+
+(무언가 확인하다가 출력되는 내용이 너무 길면 명령어 뒤에 ` | less` 를 붙이자)
