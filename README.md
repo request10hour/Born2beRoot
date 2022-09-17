@@ -116,4 +116,35 @@ user로 로그인해서 `groups` 명령어 치면 됨
 - LVM : PV를 묶어서 VG를 만들고 LV로 나누어 사용
 
 ## SUDO
-1.
+1. Check that the program is properly installed on the virtual machine.sudo<br>
+`dpkg -l | grep sudo`<br>
+설치된 패키지 목록 확인
+2. Assigning your new user to the group.sudo<br>
+`sudo adduser <username> sudo`
+3. 	Explain the value and operation of sudo using examples of their choice.<br>
+notsafe - `vim /etc/sudoers`<br>
+safety - `sudo visudo /etc/sudoers`<br>
+	```vim
+	# See the man page ...
+	#
+	## written as default
+	Defaults	env_reset
+	Defaults	mail_padpass
+	## add from here
+	Defaults	secure_path"...~:/snap/bin"
+	Defaults	passwd_tries=3
+	Defaults	badpass_message="wrong password"
+	Defaults	iolog_dir="/var/log/sudo"
+	Defaults	log_input, log_output
+	Defaults	requiretty
+	```
+	`requiretty - If set, sudo will only run when the user is logged in to a real tty.  When this flag is set, sudo can only be  run from a login session and not via other means such  as cron(8) or cgi-bin scripts.  This flag is off by default.`<br>
+sudo는 로그인 세션에서만 실행할 수 있으며 cron(8) 또는 cgi-bin 스크립트와 같은 다른 방법을 통해 실행할 수 없습니다. 이 플래그는 기본적으로 꺼져 있습니다.
+4. Verify that the folder exists and has at least one file./var/log/sudo/
+5. 	Check the contents of the files in this folder, You should see a history of the commands used with sudo.
+6. Try to run a command via sudo. See if the file(s) in the folder have been updated./var/log/sudo/
+
+- **4,5,6 공통**<br>
+	`/var/log/sudo/` 에서 확인
+
+## UFW
