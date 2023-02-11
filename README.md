@@ -90,6 +90,8 @@ adduser를 하면 비번까지 일사천리로 되고, useradd를 하면 비번�
 그룹 목록 확인<br>
 `sudo adduser <username> evaluating`<br>
 user를 'evaluating' 그룹에 추가<br>
+`sudo id <username>`<br>
+user가 속한 그룹 모두 확인<br>
 ~~`sudo deluser <username> <group>`<br>
 user를 그룹에서 제외~~
 5. Check that this user belongs to the evaluating group.<br>
@@ -134,6 +136,7 @@ safety - `sudo visudo /etc/sudoers`<br>
 	Defaults	secure_path"...~:/snap/bin"
 	Defaults	passwd_tries=3
 	Defaults	badpass_message="wrong password"
+	Defaults	authfail_message="authentication failed"
 	Defaults	iolog_dir="/var/log/sudo"
 	Defaults	log_input, log_output
 	Defaults	requiretty
